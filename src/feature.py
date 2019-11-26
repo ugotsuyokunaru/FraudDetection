@@ -1,6 +1,7 @@
+import os
+
 import pandas as pd
 import numpy as np 
-
 
 def get_combine():
     '''
@@ -10,9 +11,9 @@ def get_combine():
     Return: 
         combine: a dataframe with train set and test set
     '''
-    
-    train = pd.read_csv('../data/train.zip', compression='zip')
-    test = pd.read_csv('../data/test.zip', compression='zip')
+    print('\tStart processing combine dataframe.\n\t\tStart loading zip files ...')
+    train = pd.read_csv(os.path.join(os.path.dirname(__file__), '..', 'data', 'train.zip'), compression='zip')
+    test = pd.read_csv(os.path.join(os.path.dirname(__file__), '..', 'data', 'test.zip'), compression='zip')
     d = {
         'acqic': 'acquirer',
         'bacno': 'bank',
@@ -42,6 +43,7 @@ def get_combine():
         'Y': 1,
         'N': 0
     }
+    print('\t\tStart renaming columns and concating ... ')
     train.rename(columns=d, inplace=True)
     test.rename(columns=d, inplace=True)
     combine = pd.concat([train.sort_values(by=['date', 'time']), test.sort_values(by=['date', 'time'])], sort=False).reset_index(drop=True)
@@ -49,6 +51,7 @@ def get_combine():
         combine[col] = combine[col].map(d2)
     combine['fallback'].fillna(2, inplace=True)
     combine['3ds'].fillna(2, inplace=True)
+    print('\t\tFinish loading and processing combine dataframe.\n\n')
     return combine
 
 def map_stat_feature(X, b, c, mean=True, max_val=True, \

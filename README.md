@@ -22,9 +22,13 @@ cd stellargraph
 pip install -r requirements.txt
 pip install .
 ```
-
 install refference :  
 https://stellargraph.readthedocs.io/en/stable/quickstart.html?fbclid=IwAR1cyrmxdxRQnz4LJqCLioEwEzR0KDuS8T27AVbu3WxbkRtpHWM_-eBf0Oc#install-stellargraph-from-github-source
+
+or another install way : 
+```
+pip install stellargraph
+```
 
 (3) Install other packages : 
 ```

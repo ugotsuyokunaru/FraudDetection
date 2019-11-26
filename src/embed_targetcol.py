@@ -13,10 +13,8 @@ from torch.autograd import Variable
 from src.feature import get_combine
 
 class FeedForwardNN(nn.Module):
-
     def __init__(self, emb_dims, no_of_cont, lin_layer_sizes,
                output_size, emb_dropout, lin_layer_dropouts):
-
         """
         Parameters
         ----------
@@ -81,7 +79,6 @@ class FeedForwardNN(nn.Module):
                                       for size in lin_layer_dropouts])
 
     def forward(self, cont_data, cat_data):
-
         if self.no_of_embs != 0:
             x = [emb_layer(cat_data[:, i])
                 for i, emb_layer in enumerate(self.emb_layers)]
@@ -89,8 +86,7 @@ class FeedForwardNN(nn.Module):
             x = self.emb_dropout_layer(x)
 
         if self.no_of_cont != 0:
-#             normalized_cont_data = self.first_bn_layer(cont_data)
-
+            # normalized_cont_data = self.first_bn_layer(cont_data)
             if self.no_of_embs != 0:
                 x = torch.cat([x, cont_data], 1) 
             else:
@@ -207,7 +203,7 @@ def embed_target(target_col, target_dim=5, batch_size=2048):
                       output_size=output_num, emb_dropout=0.3,
                       lin_layer_dropouts=[0.3, 0.3]).to(device)
     
-    print('start training...')
+    print('Start training for embed_target [{}] ...'.format(target_col))
     optimizer = torch.optim.Adam(model.parameters(), lr=0.00003)
     training_epochs = 50
     for epoch in range(training_epochs):
@@ -221,18 +217,11 @@ def embed_target(target_col, target_dim=5, batch_size=2048):
             else:
                 batch_y = batch_y.to(dtype=torch.int64).to(device)
                 loss = loss_fn(y_pred, batch_y.squeeze())
-
-            # reset gradients
-            optimizer.zero_grad()
-
-            # backward pass
-            loss.backward()
-
-            # update weights
-            optimizer.step()
-
+            optimizer.zero_grad()   # reset gradients
+            loss.backward()         # backward pass
+            optimizer.step()        # update weights
             del batch_y, batch_cont_x, batch_cat_x  
-        print(f'epoch: {epoch}, loss: {loss}')
+        print(f'Epoch: {epoch}, loss: {loss}')
     df = pd.DataFrame()
 
     for i, col in enumerate(need_encode):
