@@ -12,7 +12,7 @@ def preprocess():
     combine = get_combine()
     for col in ['money', 'trade_type', 'online']:
         print('Generating embed_target [{}] ... '.format(col))
-        combine = pd.concat([combine, embed_target(col, epoch_num=1)], axis=1)
+        combine = pd.concat([combine, embed_target(col, epoch_num=50)], axis=1)
     print('Generating graph_embed ...')
     combine = pd.concat([combine, graph_embed()], axis=1)
 
