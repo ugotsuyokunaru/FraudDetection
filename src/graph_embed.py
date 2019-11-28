@@ -53,15 +53,15 @@ def graph_embed():
     df_all = None
     
     for col_a in li:
-        combine[col_a] = combine[col_a].astype(str) + d[col_a]
+        combine[col_a] = combine[col_a].astype(str) + [d[col_a]]
     
     for index, col_a in enumerate(li[1:]):
         print(f'{col_a} started..')
         walk_all = []
         for day in np.linspace(1, 120, 120):
-            print(day, end=',')
+            print(day, end=',', flush=True)
             df = combine[combine['date'] == day]
-            G = construct_graph(col_a, 'bank', df)
+            G = construct_graph('bank', col_a, df)
             rw = BiasedRandomWalk(StellarGraph(G))
             walk = rw.run(
                 nodes=list(G.nodes()), # root nodes

@@ -159,7 +159,7 @@ class TabularDataset(Dataset):
         return [self.y[idx], self.cont_X[idx], self.cat_X[idx]]
 
     
-def embed_target(target_col, target_dim=5, batch_size=2048):
+def embed_target(target_col, target_dim=5, batch_size=2048, epoch_num=50):
     def get_device():
         # Use GPU if available, otherwise stick with cpu
         use_cuda = torch.cuda.is_available()
@@ -205,7 +205,7 @@ def embed_target(target_col, target_dim=5, batch_size=2048):
     
     print('Start training for embed_target [{}] ...'.format(target_col))
     optimizer = torch.optim.Adam(model.parameters(), lr=0.00003)
-    training_epochs = 50
+    training_epochs = epoch_num
     for epoch in range(training_epochs):
         model.train()
         for step, (batch_y, batch_cont_x, batch_cat_x) in enumerate(tr_dataloader):

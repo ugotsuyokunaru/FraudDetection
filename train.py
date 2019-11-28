@@ -85,7 +85,7 @@ def train_30days():
 def train_120days(action='cv', n_fold=5, threshold=None):
     not_train = ['txkey', 'date', 'time', 'fraud_ind']
     need_encode = ['acquirer', 'bank', 'card', 'coin', 'mcc', 'shop', 'city', 'nation']
-    cat = ['status', 'trade_cat', 'pay_type', 'trade_type']
+    cat = ['status', 'trade_cat', 'pay_type', 'trade_type', 'hour']
     feature_root = os.path.join('.', 'data', 'feature')
     os.makedirs(feature_root, exist_ok=True)
 
