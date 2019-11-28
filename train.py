@@ -122,7 +122,7 @@ def parse_args():
     parser = ArgumentParser()
     parser.add_argument("--action", "-a", choices=['cv', 'submit'], default='submit', type=str)
     parser.add_argument("--n_fold", "-n", default=5, type=int)
-    parser.add_argument("--threshold", "-t", default=0.248, type=float)
+    parser.add_argument("--threshold", "-t", default=0.26, type=float)
     args = parser.parse_args()
     return args
 
