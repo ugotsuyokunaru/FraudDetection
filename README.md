@@ -22,7 +22,7 @@ cd stellargraph
 pip install -r requirements.txt
 pip install .
 ```
-install refference :  
+install reference :  
 https://stellargraph.readthedocs.io/en/stable/quickstart.html?fbclid=IwAR1cyrmxdxRQnz4LJqCLioEwEzR0KDuS8T27AVbu3WxbkRtpHWM_-eBf0Oc#install-stellargraph-from-github-source
 
 or another install way : 
@@ -38,7 +38,7 @@ pip install -r requirement.txt
 ### 2. Feature Engineering Preprocess
 Use the following command to generate two pickle file  
 1. ./data/combine_120days.pkl  
-2. ./data/combine_120days.pkl  
+2. ./data/combine_30days.pkl  
 
 for two different models with the origin train.zip and test.zip.
 ```
