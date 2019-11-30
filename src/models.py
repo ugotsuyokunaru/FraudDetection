@@ -1,3 +1,4 @@
+import gc
 import os
 
 import numpy as np
@@ -87,3 +88,6 @@ def train_lgb(X_train, y_train, df_test, test_txkey, model_type='focal'):
     os.makedirs('./submit', exist_ok=True)
     df_output.to_csv('./submit/{}.csv'.format(model_type), index=False)
     print('\nPrediction written to ./submit/{}.csv'.format(model_type))
+
+    del X_train, y_train, train_data, df_test, df_output, test_txkey
+    gc.collect()
