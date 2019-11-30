@@ -35,7 +35,7 @@ def lgb_f1_score(y_hat, data):
 def train_lgb(X_train, y_train, df_test, test_txkey, model_type='focal'):   
     params = {
         'objective': 'binary',
-        'early_stopping_rounds': 100,
+        # 'early_stopping_rounds': 100,
         'learning_rate': 0.01,
         'reg_alpha': 0.5,
         'reg_lambda': 0.5,
