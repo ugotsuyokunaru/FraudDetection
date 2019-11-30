@@ -120,6 +120,7 @@ def train_120days(action='cv', n_fold=5, threshold=None):
 
 def parse_args():
     parser = ArgumentParser()
+    parser.add_argument("--model_type", "-m", choices=['30', '120', 'both'], default='both', type=str)
     parser.add_argument("--action", "-a", choices=['cv', 'submit'], default='submit', type=str)
     parser.add_argument("--n_fold", "-n", default=5, type=int)
     parser.add_argument("--threshold", "-t", default=0.26, type=float)
@@ -129,13 +130,22 @@ def parse_args():
 
 if __name__ == '__main__':
     opt = parse_args()
-
-    print('[Start training model 1 (120 days) ]\n')
-    train_120days(
-        action=opt.action,
-        n_fold=opt.n_fold,
-        threshold=opt.threshold
-    )
-
-    print('[Start training model 2 3 (30 days) ]\n')
-    train_30days()
+    if opt.model_type == 'both':
+        print('[Start training model 1 (120 days) ]\n')
+        train_120days(
+            action=opt.action,
+            n_fold=opt.n_fold,
+            threshold=opt.threshold
+        )
+        print('[Start training model 2 3 (30 days) ]\n')
+        train_30days()
+    elif opt.model_type == '120':
+        print('[Start training (120 days) model ]\n')
+        train_120days(
+            action=opt.action,
+            n_fold=opt.n_fold,
+            threshold=opt.threshold
+        )
+    elif opt.model_type == '30':
+        print('[Start training (30 days) model ]\n')
+        train_30days()
