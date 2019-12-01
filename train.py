@@ -71,8 +71,11 @@ def train_30days():
     # Testing data preperation
     test_txkey = df_test[['txkey']]
     df_test = df_test.drop(columns=drop_list)
+    del combine
+    gc.collect()
     print('\tTrain dataset shape :', X_train.shape)
     print('\tTrain label shape :', y_train.shape, '\n')
+        
 
     # 2. Training Focal model
     print('\n[Step 2/3] Start Training Focal model ... \n')
