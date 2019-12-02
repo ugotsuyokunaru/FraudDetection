@@ -47,8 +47,8 @@ def ensemble():
     submission = submission.merge(david, on='txkey', how='outer')
     submission.columns = ['txkey', 'fraud_ind', 'focal', 'lgbm_diff', 'david']
 
-    print("\nStart Ensembling ... ")
     same_list = get_samelist()
+    print("\nStart Ensembling ... ")
     submission['fraud_ind'] = submission.apply(ensemble_helper, axis=1, same_list=same_list)
     submission_ready = submission.drop(columns=['focal', 'lgbm_diff', 'david'])
     submission_ready.to_csv('./submit/ensemble.csv', index=False)
