@@ -49,7 +49,7 @@ def ensemble():
 
     print("\nStart Ensembling ... ")
     same_list = get_samelist()
-    submission['fraud_ind'] = submission.apply(ensemble_helper, axis=1, args=(same_list))
+    submission['fraud_ind'] = submission.apply(ensemble_helper, axis=1, same_list=same_list)
     submission_ready = submission.drop(columns=['focal', 'lgbm_diff', 'david'])
     submission_ready.to_csv('./submit/ensemble.csv', index=False)
 
