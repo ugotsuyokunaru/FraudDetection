@@ -1,3 +1,4 @@
+import gc
 import os
 
 import numpy as np
@@ -5,12 +6,18 @@ import pandas as pd
 
 from train import get_dataset, TRAIN_SHAPE
 
-def ensemble_helper(row):
+
+def get_samelist():
+    print('Loading features dataframe to generate "same_list" ... ')
     # make same user list, diff user list
     combine = get_dataset(d_type='30days')
     df_test = combine.loc[TRAIN_SHAPE:]
     same_list = list(set(combine['card']) & set(df_test['card']))
+    del combine, df_test
+    gc.collect()
+    return same_list
 
+def ensemble_helper(row, same_list):
     # ensemble logic
     if row['focal'] == 1:
         val = 1
@@ -41,7 +48,8 @@ def ensemble():
     submission.columns = ['txkey', 'fraud_ind', 'focal', 'lgbm_diff', 'david']
 
     print("\nStart Ensembling ... ")
-    submission['fraud_ind'] = submission.apply(ensemble_helper, axis=1)
+    same_list = get_samelist()
+    submission['fraud_ind'] = submission.apply(ensemble_helper, axis=1, args=(same_list))
     submission_ready = submission.drop(columns=['focal', 'lgbm_diff', 'david'])
     submission_ready.to_csv('./submit/ensemble.csv', index=False)
 
