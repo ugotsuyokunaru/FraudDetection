@@ -14,9 +14,9 @@ def ensemble_helper(row):
     # ensemble logic
     if row['focal'] == 1:
         val = 1
-    elif row['lgbm_diff'] == 1 & row['txkey'] not in same_list:  # different user
+    elif (row['lgbm_diff'] == 1) & (row['txkey'] not in same_list):  # different user
         val = 1
-    elif row['david'] == 1 & row['txkey'] in same_list:          # same user
+    elif (row['david'] == 1) & (row['txkey'] in same_list):          # same user
         val = 1
     else:
         val = 0
