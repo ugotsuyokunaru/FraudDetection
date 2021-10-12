@@ -1,8 +1,8 @@
 # FraudDetection
 
 
-## Topic Guide and Method Description
-### TODO
+## Method Description
+![poster](./doc/solution_poster.png)
 
 
 ## Usage of codes to reproduce our results
